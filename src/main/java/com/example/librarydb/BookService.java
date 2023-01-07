@@ -1,8 +1,12 @@
 package com.example.librarydb;
 
 
+import com.example.librarydb.Models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -11,17 +15,17 @@ public class BookService {
     @Autowired
     BookRespository bookRespository;
 
+
+
+
+    @Autowired
+    BookRepositoryLayer bookRepositoryLayer;
+
     public void createBook(Book book)throws Exception{
 
         //Logic is written here
 
-        //Validation part of duplicate part
-        if(bookRespository.findById(book.getId()).get()!=null){
-
-            throw new Exception("Book is already present");
-        }
-
-        bookRespository.save(book);
+        bookRepositoryLayer.createBook(book);
 
     }
 
@@ -48,5 +52,26 @@ public class BookService {
         bookRespository.save(bookToBeUpdated);
     }
 
+    public List<ResponseObj> getBookNameAndAuthor(){
+
+        //From the repository class --> what will I get
+
+        List<Book> bookList = bookRespository.findAll(); //Select * from book_table;
+
+
+        //Convert this entity into responseObject
+        List<ResponseObj> ansList = new ArrayList<>();
+        for(Book book:bookList){
+
+            ResponseObj obj = new ResponseObj();
+            obj.author = book.getAuthor();
+            obj.name = book.getName();
+
+            ansList.add(obj);
+
+        }
+        return ansList;
+
+    }
 
 }

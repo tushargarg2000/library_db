@@ -1,8 +1,11 @@
 package com.example.librarydb;
 
 
+import com.example.librarydb.Models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class BookController {
@@ -11,7 +14,7 @@ public class BookController {
     BookService bookService;
 
     @PostMapping("/add_book")
-    public void addBook(@RequestBody()Book book)  {
+    public void addBook(@RequestBody() Book book)  {
 
 
         //In the controller layer : we are handling this with try catch
@@ -36,9 +39,16 @@ public class BookController {
     }
 
     @PutMapping("/update_pages")
-    public void updatePages(@RequestBody()UpdateBookPage updateBookPage){
+    public void updatePages(@RequestBody()UpdateBookPage updateBookPage){ //Book book
 
         bookService.updateBookPages(updateBookPage);
     }
 
+    @GetMapping("/get_book_names_and_authors")
+    public List<ResponseObj> getBookNamesAndAuthor(){
+
+        List<ResponseObj> responseObjs = bookService.getBookNameAndAuthor();
+
+        return responseObjs;
+    }
 }

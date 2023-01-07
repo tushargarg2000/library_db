@@ -1,4 +1,4 @@
-package com.example.librarydb;
+package com.example.librarydb.Models;
 
 
 import jakarta.persistence.*;

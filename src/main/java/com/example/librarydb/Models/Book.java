@@ -1,10 +1,7 @@
-package com.example.librarydb;
+package com.example.librarydb.Models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="book_table")
@@ -20,6 +17,12 @@ public class Book {
     private int pages;
 
     private String author;
+
+
+    //I need to connect with the student
+    @ManyToOne
+    @JoinColumn
+    private Student student; //Connect the student entity
 
     public Book(int id, String name, int pages, String author) {
         this.id = id;
